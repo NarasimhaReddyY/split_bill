@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SplitBill</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div id="navbar" class="navbar-collapse collapse">
+        <% if signed_in? %>
+          <ul class="nav navbar-nav navbar-left">
+            <li>
+              <%= link_to 'Groups', groups_url, class: '' %>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= link_to 'Logout', destroy_user_session_url, method: :delete %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 main">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

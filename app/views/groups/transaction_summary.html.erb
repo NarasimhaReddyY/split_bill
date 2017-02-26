@@ -1,0 +1,42 @@
+<div id="page_content">
+  <div class="page-header">
+    <h3>
+      Transactions Summary
+    </h3>
+  </div>
+
+  <div class="page-body">
+    <div class="row">
+      <div class='col-md-8'>
+        <strong>*Chart shows the amount you recieves from (or) Need to pay to all other members of this group</strong>
+        <br/>
+        <% if @total_payments.present? %>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Member</th>
+                  <th>You have to Pay</th>
+                  <th>You will Recieve</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @total_payments.each do |member_id, amount| %>
+                  <% next if member_id == current_user.id.to_s %>
+                  <tr>
+                    <td><%= User.find(id: member_id).name %></td>
+                    <td><%= amount.negative? ? '-' : amount.abs %></td>
+                    <td><%= amount.negative? ? amount.abs : '-' %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <% else %>
+          <span class='text-muted'>No Payments</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

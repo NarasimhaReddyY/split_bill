@@ -1,0 +1,22 @@
+<div id="page_content">
+  <div class="page-header">
+    <h2>
+     Group
+    </h2>
+  </div>
+
+  <div class="page-body">
+    <%= form_for @group, url: groups_url, html: {class: "form-horizontal"} do |form| %>
+    <%= render partial: 'form', locals: { form: form, group: @group } %>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+          <%= form.submit 'Create', class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+

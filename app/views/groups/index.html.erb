@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+<div id="page_content">
+  <div class="page-header">
+    <h2>
+      New Group <%= link_to 'Add Group', new_group_url, class: 'btn btn-primary pull-right' %>
+    </h2>
+  </div>
+
+  <% if @groups.present? %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @groups.each_with_index do |group, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= group.name %></td>
+              <td><%= group.created_at.strftime("%d-%m-%Y") %></td>
+              <td><%= group.updated_at.strftime("%d-%m-%Y") %></td>
+              <td>
+                <%= link_to 'Show', group_url(group) %> |
+                <%= link_to 'Edit', edit_group_url(group) %> |
+                <%= link_to 'Destroy', group_url(group), method: :delete, data: { confirm: 'Are you sure?' } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="text-muted">No Groups</div>
+  <% end %>
+</div>

@@ -1,0 +1,64 @@
+<% if transaction.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+    <ul>
+    <% transaction.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="form-group">
+  <%= form.label :amount, class: "col-sm-2 control-label" %>
+  <div class="col-sm-4">
+    <%= form.text_field :amount, class: "form-control", placeholder: 'Enter amount' %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= form.label :comment, class: "col-sm-2 control-label" %>
+  <div class="col-sm-4">
+    <%= form.text_field :comment, class: "form-control", placeholder: 'Enter comment' %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= form.label :paid_date, class: "col-sm-2 control-label" %>
+  <div class="col-sm-4">
+    <%= form.date_select :paid_date, { start_year: 1900, end_date: 2017 }, class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Shares</label>
+  <div class="col-sm-4">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Member</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= form.fields_for :shares, transaction.shares do |shares_form| %>
+            <tr>
+              <td>
+                <label>
+                  <%= User.where(id: shares_form.object.user_id).first.name %>
+                </label>
+                <%= shares_form.hidden_field :user_id, value: shares_form.object.user_id %>
+              </td>
+
+              <td>
+                <%= shares_form.text_field :amount, placeholder: 'Amount', class: "form-control" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

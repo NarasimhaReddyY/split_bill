@@ -1,0 +1,72 @@
+<div id="page_content">
+  <div class="page-header">
+    <h3>
+      Transaction
+    </h3>
+  </div>
+
+  <div class="page-body">
+
+    <div class="row">
+      <div class="col-md-6">
+        <strong style="margin-right:10px;">Date: </strong>
+        <%= @transaction.paid_date.strftime("%d-%m-%Y") %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <strong style="margin-right:10px;">Amount: </strong>
+        <%= @transaction.amount %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <strong style="margin-right:10px;">Added By: </strong>
+        <%= @transaction.user.name %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <strong style="margin-right:10px;">Comment: </strong>
+        <%= @transaction.comment %>
+      </div>
+    </div>
+
+    <hr>
+    <div class="row">
+      <div class='col-md-8'>
+        <strong>Shares</strong>
+        <br/>
+        <% if @transaction.shares.present? %>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Member</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @transaction.shares.each_with_index do |share, index| %>
+                  <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= share.member.name %></td>
+                    <td><%= share.amount %></td>
+                  </tr>
+
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <% else %>
+          <span class='text-muted'>No Shares</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
